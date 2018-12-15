@@ -155,7 +155,7 @@ bot.on('message', async message => {
         ownerID
         ]
 
-    if (message.author.id !== "523581195485839370") {
+    if (message.author.id !== owner) {
             if (foundMatch = banlist.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
                     let deleteword = new Discord.RichEmbed()
                         .setColor("#FF0000")

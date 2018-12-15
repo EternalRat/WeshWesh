@@ -1,0 +1,236 @@
+//Déclaration des variables globales
+const botSettings = require("./cmds/bot/botSettings.json")
+const Discord = require("discord.js")
+const prefix = botSettings.prefix
+const fs = require("fs")
+const moment = require("moment")
+const bot = new Discord.Client({ disableEveryone: true })
+
+bot.commands = new Discord.Collection()
+bot.aliases = new Discord.Collection()
+bot.mutes = require("./json/mutes.json")
+global.servers = {}
+
+//lecture des fichiers commandes
+fs.readdir('./cmds', (err, files) => {
+
+    if (err) return console.log(`err while reading ./cmds`)
+    files.forEach((folder) => {
+        fs.readdir(`./cmds/${folder}`, (err, files) => {
+            if (err) return console.log(`err while reading ./cmds/${folder}`)
+            var failed = 0
+
+            files.filter(f => f.split(".").pop() === "js").forEach((file, i) => {
+                try {
+                    let props = require(`./cmds/${folder}/${file}`)
+                    console.log(`${i + 1}: ${file} loaded!`)
+                    bot.commands.set(props.help.name, props)
+                    bot.commands.set(props.help.alias, props)
+                } catch (e) {
+                    console.log(`unable to load ./cmds/${folder}/${file}`)
+                    console.log(e)
+                    failed++
+                }
+            })
+            console.log(`found ${files.length} commands, loaded ${files.length - failed}`)
+        })
+    })
+
+})
+
+//Annonce que le bot est prêt + set l'activité + option mute
+bot.on("ready", async () => {
+    console.log(`${bot.user.username} prêt !`)
+
+    let status1 = [
+        prefix + "help",
+        "https://discord.gg/nKbD57b",
+        "Coded in Javascript",
+        "Version 1.0"
+    ]
+
+    bot.setInterval(function () {
+        let status = status1[Math.floor(Math.random() * status1.length)]
+        bot.user.setActivity(status)
+        //console.log("Statut : " + status)
+    }, 10000)
+})
+
+bot.on("guildMemberAdd", member => {
+    let newMember = new Discord.RichEmbed()
+        .setTitle(`Welcome ${member.user.username}, you're now on **${member.guild.name}**!`)
+        .setThumbnail(member.guild.iconURL)
+        .setDescription(`Don't forget to read the charts (rules) and approve it by leaving reactions in order to get your roles.`)
+        .setFooter(`Copyright - ${bot.user.username}`)
+    member.send(newMember)
+
+    const channelc = member.guild.channels.find("name", "welcome")
+    if (!channelc) {
+        member.guild.createChannel('welcome', 'text')
+    }
+    let Nm = new Discord.RichEmbed()
+        .setTitle(`**${member.user.username}** has arrived in **${member.guild.name}**`)
+        .setAuthor(member.user.username, member.user.avatarURL)
+        .setThumbnail(member.guild.iconURL)
+        .addField(`Welcome to ${member.guild.name} !`, `I hope you'll enjoy your days here !`)
+        .setFooter(`Copyright - ${bot.user.username}`)
+    channel.send(Nm)
+})
+
+bot.on("guildMemberRemove", async (member) => {
+    const bye = member.guild.channels.find('name', 'good-bye')
+    if (member.guild.me.hasPermission('MANAGE_CHANNELS') && !bye) {
+        await member.guild.createChannel('good-bye', 'text')
+    } else if (!bye) {
+        return
+    }
+    let Rm = new Discord.RichEmbed()
+        .setTitle(`**${member.user.username}** has left **${member.guild.name}**`)
+        .setAuthor(member.user.username, member.user.avatarURL)
+        .setThumbnail(member.guild.iconURL)
+        .addField(`Good bye to ${member.user.username} !`, `I hope he will be fine now !`)
+        .setFooter(`Copyright - ${bot.user.username}`)
+    bye.send(Rm)
+})
+
+bot.on('messageDelete', async (message) => {
+    if (message.author.id === "506151275990351923") return
+    const logs = message.guild.channels.find('name', 'logs-report')
+    if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
+        await message.guild.createChannel('logs-report', 'text')
+    } else if (!logs) {
+        return console.log('The logs channel does not exist and cannot be created')
+    }
+    const entry = await message.guild.fetchAuditLogs({
+        type: 'MESSAGE_DELETE'
+    }).then(audit => audit.entries.first())
+    let user
+    if (entry.extra.channel.id === message.channel.id && (entry.target.id === message.author.id) && (entry.createdTimestamp > (Date.now() - 5000)) && (entry.extra.count >= 1)) {
+        user = entry.executor.username
+    } else {
+        user = message.author
+    }
+    if (logs) {
+        const logembed = new Discord.RichEmbed()
+            .setTitle('Message Deleted')
+            .setAuthor(user.tag, message.author.displayAvatarURL)
+            .addField(`**Message sent by ${message.author.username} has been deleted in ${message.channel.name}**`, message.content)
+            .setColor("#FF0000")
+            .setFooter(`#${message.channel.name}`)
+            .setTimestamp()
+        //console.log(entry)
+        logs.send(logembed)
+    }
+})
+
+bot.on('message', async message => {
+
+    //Déclaration des variabless
+    let banlist = [
+        'fdp',
+        'fils de pute',
+        'connard',
+        'connasse',
+        'fdp',
+        'pute',
+        "pd",
+        'salope',
+        'salop',
+        'enfoire',
+        "tg",
+        "ta gueule",
+        'ntm',
+        'nique ta mere',
+        'pederaste',
+        'batard',
+        'con',
+        'conne',
+        'petasse'
+    ]
+
+    let foundMatch = ''
+
+    if (message.author.id !== "506151275990351923") {
+        //Bannir un mot et +1 warn
+        if (!add.includes(message.author.id)) {
+            if (foundMatch = banlist.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
+                if (insult[message.guild.id].on === 1) {
+                    let deleteword = new Discord.RichEmbed()
+                        .setColor("#FF0000")
+                        .setTitle("Banned words")
+                        .setThumbnail(message.guild.iconURL)
+                        .setAuthor(message.author.username, message.author.avatarURL)
+                        .setDescription("You're not allowed to swear!") // c'est mieux formulé je pense
+                        .addField("banned word found: ", `\`${foundMatch}\``)
+                    message.delete()
+                    message.channel.send(deleteword)
+                    let channelsx = message.guild.channels.find('name', "logs")
+                    channelsx.send(deleteword)
+                    let owner = message.guild.owner
+                    owner.send(`Someone has sent a wrong word ! ${foundMatch} has been sent by ${message.author.username}`)
+                }
+            }
+        }
+    }
+
+    if (message.author.id !== "506151275990351923") {
+        let str = [
+            "chat",
+        ]
+
+        let catMatch = ''
+
+        if (catMatch = str.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
+            let catembed = new Discord.RichEmbed()
+                .setAuthor(message.author.username)
+                .setTitle("Cat image")
+                .setImage("https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif")
+                .setFooter("Copryight - " + "EternalRat")
+            message.channel.send(catembed)
+        }
+
+        let slt = [
+            "salut",
+            "yo",
+            "slt",
+            "bonjour",
+            "bonchour",
+            "bonsoir",
+            "hey",
+            "hi",
+            "hello"
+        ]
+
+        let sltMatch = ''
+
+        if (sltMatch = slt.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
+            message.reply("Hey !")
+        }
+
+        let gn = [
+            "bonne nuit",
+            "good night",
+        ]
+
+        let gnMatch = ''
+
+        if (gnMatch = gn.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
+            message.reply("Bonne nuit !")
+        }
+    }
+
+    if (message.author.bot) return
+    if (message.channel.type === "dm") return
+
+    let messageArray = message.content.split(" ")
+    let command = messageArray[0]
+    if (!command.startsWith(prefix)) return
+    let args = messageArray.slice(1)
+
+    let cmd = bot.commands.get(command.slice(prefix.length))
+    if (cmd) cmd.run(bot, message, args)
+
+    if (cmd) fs.appendFileSync(`./logs/logs_${moment().format('YYYY-MM-DD')}.txt`, `${moment().format('YYYY-MM-DD, h:mm:ss a')} : La commande ${cmd.help.name} a été faite par ${message.author.username} sur le serveur ${message.guild.name} dans le salon ${message.channel.name} \n`)
+})
+
+bot.login(process.env.TOKEN)

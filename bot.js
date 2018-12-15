@@ -8,7 +8,6 @@ const bot = new Discord.Client({ disableEveryone: true })
 
 bot.commands = new Discord.Collection()
 bot.aliases = new Discord.Collection()
-bot.mutes = require("./json/mutes.json")
 global.servers = {}
 
 //lecture des fichiers commandes

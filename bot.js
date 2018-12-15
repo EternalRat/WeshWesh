@@ -148,7 +148,7 @@ bot.on('message', async message => {
     ]
 
     let foundMatch = ''
-    let ownerID = message.guild.id
+    let ownerID = message.guild.owner.id
     
     let owner = [
         "523581195485839370",

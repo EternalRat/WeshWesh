@@ -150,8 +150,6 @@ bot.on('message', async message => {
     let foundMatch = ''
 
     if (message.author.id !== "506151275990351923") {
-        //Bannir un mot et +1 warn
-        if (!add.includes(message.author.id)) {
             if (foundMatch = banlist.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
                 if (insult[message.guild.id].on === 1) {
                     let deleteword = new Discord.RichEmbed()
@@ -168,7 +166,6 @@ bot.on('message', async message => {
                     let owner = message.guild.owner
                     owner.send(`Someone has sent a wrong word ! ${foundMatch} has been sent by ${message.author.username}`)
                 }
-            }
         }
     }
 

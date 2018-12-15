@@ -93,7 +93,7 @@ bot.on("guildMemberRemove", async (member) => {
 })
 
 bot.on('messageDelete', async (message) => {
-    if (message.author.id === "506151275990351923") return
+    if (message.author.id === "523581195485839370") return
     const logs = message.guild.channels.find('name', 'logs-report')
     if (message.guild.me.hasPermission('MANAGE_CHANNELS') && !logs) {
         await message.guild.createChannel('logs-report', 'text')
@@ -149,7 +149,7 @@ bot.on('message', async message => {
 
     let foundMatch = ''
 
-    if (message.author.id !== "506151275990351923") {
+    if (message.author.id !== "523581195485839370") {
             if (foundMatch = banlist.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
                 if (insult[message.guild.id].on === 1) {
                     let deleteword = new Discord.RichEmbed()
@@ -169,7 +169,7 @@ bot.on('message', async message => {
         }
     }
 
-    if (message.author.id !== "506151275990351923") {
+    if (message.author.id !== "523581195485839370") {
         let str = [
             "chat",
         ]

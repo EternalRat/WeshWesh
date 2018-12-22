@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
                     .setTitle("Invite generator")
                     .setAuthor(message.author.username, message.author.avatarURL)
                     .setColor("RANDOM")
-                    .setDescription("Here is the link for having my bot!\n[LINK TO INVITE THE BOT](https://discordapp.com/oauth2/authorize?client_id=506151275990351923&scope=bot&permissions=2146958847)")
+                    .setDescription("Here is the link for having my bot!\n[LINK TO INVITE THE BOT](https://discordapp.com/oauth2/authorize?client_id=523581195485839370&scope=bot&permissions=2146958847)")
                     .setFooter("Copyright - " + bot.user.username)
                 message.channel.send(embed)
                 break;

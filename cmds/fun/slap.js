@@ -25,13 +25,13 @@ module.exports.run = async(bot,message,args) => {
     let gifembed = new Discord.RichEmbed()
         .setDescription(`${message.author} has slapped ${message.mentions.users.first()}`)
         .setImage(slapgif[sg])
-        .setFooter("Powered by EternalRat Bot")
+        .setFooter("Powered by " + bot.user.username)
     message.channel.send(gifembed);
     } else {
         let gifembed2 = new Discord.RichEmbed()
         .setDescription(`${message.author} has slapped hisself`)
         .setImage(slapgif[sg])
-        .setFooter("Powered by EternalRat Bot")
+        .setFooter("Powered by "+ bot.user.username)
     message.channel.send(gifembed2);
     }
 }

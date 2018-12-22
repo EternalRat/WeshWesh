@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("**`" + prefix + "serverinfos`**", "Display server's information")
         .addField("**`" + prefix + "calculation || c`**", "Execute a calculation")
         .addField("**`" + prefix + "invite`**", "Send a link to invite the bot on your own server")
-        .setFooter("Copyright - EternalRat")
+        .setFooter("Copyright - " + bot.user.username)
     message.author.send(other_embed);
 
     msg.delete();

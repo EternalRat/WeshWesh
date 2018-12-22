@@ -49,7 +49,7 @@ module.exports.run = async (bot, message, args) => {
         let gifembed2 = new Discord.RichEmbed()
             .setDescription(`${message.author} is kissing ${message.author} ` + alone[pl] + ":cry:")
             .setImage(gif[rk])
-            .setFooter("Powered by EternalRat Bot")
+            .setFooter("Powered by " + bot.user.username)
         message.channel.send(gifembed2);
     }
 }

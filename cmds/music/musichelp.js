@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("**`" + prefix + "skip`**", "Skip the actual music [Some problem actually]")
         .addField("**`" + prefix + "join || j`**", "The bot will join your channel")
         .addField("**`" + prefix + "leave || l`**", "The bot will leave your channel")
-        .setFooter("Copyright - EternalRat")
+        .setFooter("Copyright - " + bot.user.username)
     message.author.send(music_embed);
 
     msg.delete();

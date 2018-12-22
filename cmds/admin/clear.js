@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
       .setTitle("Clear has been realized !")
       .setThumbnail(message.guild.iconURL)
       .addField("**Number of message erased :**", args[0])
-      .setFooter(`Copyright - ${message.guild.name}`)
+      .setFooter(`Copyright - ${bot.user.username}`)
     message.author.send(clearing_embed);
   })
   message.channel.send(msgclear)

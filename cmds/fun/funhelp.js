@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
         .addField(" :kissing_heart:  **`" + prefix + "kiss`**", "Kiss someone (image) {*kiss [@...]}")
         .addField(" :clap:  **`" + prefix + "slap`**", "Slap someone (gif) {*kiss [@...]}")
         .addField("**`" + prefix + "avatar`**", "Display user's avatar")
-        .setFooter("Copyright - EternalRat")
+        .setFooter("Copyright - "+ bot.user.username)
     message.author.send(fun_embed)
     msg.delete()
 }

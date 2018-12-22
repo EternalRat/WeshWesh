@@ -53,13 +53,13 @@ module.exports.run = async (bot, message, args) => {
     let gifembed = new Discord.RichEmbed()
         .setDescription(`${message.author} has hugged ${message.mentions.users.first()} ` + phrase[pa] + ":heart_eyes:")
         .setImage(gif[rg])
-        .setFooter("Powered by EternalRat Bot")
+        .setFooter("Powered by " + bot.user.username)
     message.channel.send(gifembed);
     } else {
         let gifembed2 = new Discord.RichEmbed()
         .setDescription(`${message.author} has hugged ${message.author} ` + alone[pl] + ":cry:")
         .setImage(gif[rg])
-        .setFooter("Powered by EternalRat Bot")
+        .setFooter("Powered by " + bot.user.username)
     message.channel.send(gifembed2);
     }
 }

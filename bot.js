@@ -64,8 +64,10 @@ bot.on("guildMemberAdd", member => {
     member.send(newMember)
 
     const channelc = member.guild.channels.find("name", "welcome")
-    if (!channelc) {
-        member.guild.createChannel('welcome', 'text')
+    if (member.guild.me.hasPermission('MANAGE_CHANNELS') && !channelc) {
+        await member.guild.createChannel('welcome', 'text')
+    } else if (!channelc) {
+        return
     }
     let Nm = new Discord.RichEmbed()
         .setTitle(`**${member.user.username}** has arrived in **${member.guild.name}**`)
@@ -73,7 +75,7 @@ bot.on("guildMemberAdd", member => {
         .setThumbnail(member.guild.iconURL)
         .addField(`Welcome to ${member.guild.name} !`, `I hope you'll enjoy your days here !`)
         .setFooter(`Copyright - ${bot.user.username}`)
-    channel.send(Nm)
+    channelc.send(Nm)
 })
 
 bot.on("guildMemberRemove", async (member) => {

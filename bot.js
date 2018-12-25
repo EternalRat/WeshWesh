@@ -55,7 +55,7 @@ bot.on("ready", async () => {
     }, 10000)
 })
 
-bot.on("guildMemberAdd", member => {
+bot.on("guildMemberAdd", async(member) => {
     let newMember = new Discord.RichEmbed()
         .setTitle(`Welcome ${member.user.username}, you're now on **${member.guild.name}**!`)
         .setThumbnail(member.guild.iconURL)

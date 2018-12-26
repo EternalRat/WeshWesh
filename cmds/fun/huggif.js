@@ -28,7 +28,6 @@ module.exports.run = async (bot, message, args) => {
         "https://media.tenor.com/images/6bff4b147f43aaaca86421cfb09c9324/tenor.gif",
         "https://media.tenor.com/images/09e61136823abc8bcbc4d5da42aab775/tenor.gif",
         "https://cdn.discordapp.com/attachments/469409545501016064/521029291501420580/S1qhfy2cz.gif",
-        "https://cdn.discordapp.com/attachments/469409545501016064/521029367435100170/H1Gx2aOvb.gif",
         "https://cdn.discordapp.com/attachments/469409545501016064/521029886681415690/SyaAd_7vW.gif",
     ]
 

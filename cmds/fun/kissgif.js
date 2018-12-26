@@ -19,6 +19,7 @@ module.exports.run = async (bot, message, args) => {
         "https://media.giphy.com/media/sbzu6s3Chbr3y/giphy.gif",
         "https://media.giphy.com/media/YC4QEtFmz64sE/giphy.gif",
         "https://cdn.discordapp.com/attachments/469409545501016064/521029790585847828/B12g3TOPZ.gif",
+        "https://cdn.discordapp.com/attachments/469409545501016064/521029367435100170/H1Gx2aOvb.gif"
     ]
 
     var phrase = [

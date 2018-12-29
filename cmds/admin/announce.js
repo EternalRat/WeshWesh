@@ -11,7 +11,6 @@ module.exports.run = async (bot, message, args) => {
     .setDescription('Usage: ' + prefix + 'announce [#channel] [#HTMLcodes] [message]')
     .setTimestamp()
 
-
   if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("You haven't the right for this !")
   let chan = message.mentions.channels.first()
   if (!chan) return message.channel.send(missingArgsEmbed)

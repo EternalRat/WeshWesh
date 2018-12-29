@@ -197,7 +197,6 @@ bot.on('message', async message => {
             "bonchour",
             "bonsoir",
             "hey",
-            "hi",
             "hello"
         ]
 

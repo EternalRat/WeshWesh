@@ -219,7 +219,7 @@ bot.on('message', async message => {
     }
     
     let aleks = [
-        'Aleks'
+        'aleks',
         ]
     
     let aleksmatch = ''

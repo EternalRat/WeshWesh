@@ -21,6 +21,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("**`" + prefix + "serverlist || sv`**", "Display servers where the bot is")
         .addField("**`" + prefix + "userinfo`**", "Display user's information")
         .addField("**`" + prefix + "nick || n`**", "Change user's username")
+    .addField("**`" + prefix + "guinness || gs`**", "Add a new record to the guinness")
         .setFooter("Copyright - " + bot.user.username)
     message.author.send(admin_embed);
     msg.delete();

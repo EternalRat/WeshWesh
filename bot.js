@@ -126,13 +126,13 @@ bot.on('messageDelete', async (message) => {
 
 bot.on('message', async message => {
     
-    let Aleks = [
-        "Aleks"
+    let aleks = [
+        'Aleks'
         ]
     
-    let Aleksmatch = ''
+    let aleksmatch = ''
     if(message.author.id === 343074932676231199) {
-        if(Aleksmatch = Aleks.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
+        if (aleksmatch = aleks.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
             message.channel.send("Fait moi des bébés Jax !")
         }
     }

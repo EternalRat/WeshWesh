@@ -131,7 +131,7 @@ bot.on('message', async message => {
         ]
     
     let aleksmatch = ''
-    if(message.author.id === 343074932676231199) {
+    if(message.author.id = 343074932676231199) {
         if (aleksmatch = aleks.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
             message.channel.send("Fait moi des bébés Jax !")
         }

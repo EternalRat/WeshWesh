@@ -125,6 +125,12 @@ bot.on('messageDelete', async (message) => {
 })
 
 bot.on('message', async message => {
+    
+    if(message.author.id === 343074932676231199) {
+        if(message.content === "Aleks") {
+            message.reply("Fait moi des bébés")
+        }
+    }
 
     //Déclaration des variabless
     let banlist = [

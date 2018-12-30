@@ -125,17 +125,6 @@ bot.on('messageDelete', async (message) => {
 })
 
 bot.on('message', async message => {
-    
-    let aleks = [
-        'Aleks'
-        ]
-    
-    let aleksmatch = ''
-    if(message.author.id = 343074932676231199) {
-        if (aleksmatch = aleks.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
-            message.channel.send("Fait moi des bébés Jax !")
-        }
-    }
 
     //Déclaration des variabless
     let banlist = [
@@ -228,6 +217,16 @@ bot.on('message', async message => {
             message.reply("Bonne nuit !")
         }
     }
+    
+    let aleks = [
+        'Aleks'
+        ]
+    
+    let aleksmatch = ''
+    
+        if (aleksmatch = aleks.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
+            message.channel.send("Fait moi des bébés Jax !")
+        }
 
     if (message.author.bot) return
     if (message.channel.type === "dm") return

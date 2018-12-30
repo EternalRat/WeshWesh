@@ -126,9 +126,14 @@ bot.on('messageDelete', async (message) => {
 
 bot.on('message', async message => {
     
+    let Aleks = [
+        "Aleks"
+        ]
+    
+    let Aleksmatch = ''
     if(message.author.id === 343074932676231199) {
-        if(message.content === "Aleks") {
-            message.reply("Fait moi des bébés")
+        if(Aleksmatch = Aleks.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
+            message.reply("Fait moi des bébés Jax !")
         }
     }
 

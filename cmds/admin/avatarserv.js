@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 
 module.exports.run = async (bot, message, args) => {
     let msg = await message.channel.send("Generating Avatar...");
-    let target = message.mentions.users.first(
+
     let embed = new Discord.RichEmbed()
         .setDescription(`${message.author} here is the avatar of ${message.guild.name}`)
         .setImage(message.guild.iconURL)

@@ -77,18 +77,23 @@ bot.on("guildMemberAdd", async(member) => {
     member.send(newMember)
 
      member.guild.fetchInvites().then(guildInvites => {
-    // This is the *existing* invites for the guild.
     const ei = invites[member.guild.id];
-    // Update the cached invites for the guild.
     invites[member.guild.id] = guildInvites;
-    // Look through the invites, find the one for which the uses went up.
     const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-    // This is just to simplify the message being sent below (inviter doesn't have a tag property)
     const inviter = bot.users.get(invite.inviter.id);
-    // Get the log channel (change to your liking)
     const logChannel = member.guild.channels.find(channel => channel.name === "logs");
-         logChannel.send(`${member.user.tag} joined using invite code ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation.`);
+    const lognew = new Discord.RichEmbed() 
+        .setTitle("New member has arrived")
+        .setAuthor(member.user.username)
+        .setThumbnail(member.guild.iconURL)
+        .addField("Inviter :", inviter)
+        .addField("Invite code :", invite.code)
+        .addField("Utilisation count since its creation :", invite.uses)
+    
+         logChannel.send(lognew);
   });
+    
+    
     
     const channelc = member.guild.channels.find("name", "welcome")
     if (member.guild.me.hasPermission('MANAGE_CHANNELS') && !channelc) {

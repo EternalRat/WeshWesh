@@ -86,7 +86,7 @@ bot.on("guildMemberAdd", async(member) => {
     // This is just to simplify the message being sent below (inviter doesn't have a tag property)
     const inviter = bot.users.get(invite.inviter.id);
     // Get the log channel (change to your liking)
-    const logChannel = member.guild.channels.find(channel => channel.name === "join-logs");
+    const logChannel = member.guild.channels.find(channel => channel.name === "logs");
          logChannel.send(`${member.user.tag} joined using invite code ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation.`);
   });
     

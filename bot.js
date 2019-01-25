@@ -86,8 +86,8 @@ bot.on("guildMemberAdd", async(member) => {
         .setTitle("New member has arrived")
         .setAuthor(member.user.username)
         .setThumbnail(member.guild.iconURL)
-        .addField("Inviter :", inviter)
-        .addField("Invite code :", invite.code)
+        .addField("Inviter :", inviter.tag, inline)
+        .addField("Invite code :", invite.code, inline)
         .addField("Utilisation count since its creation :", invite.uses)
     
          logChannel.send(lognew);

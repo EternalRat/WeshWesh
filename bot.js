@@ -9,6 +9,11 @@ const bot = new Discord.Client({ disableEveryone: true })
 bot.commands = new Discord.Collection()
 bot.aliases = new Discord.Collection()
 global.servers = {}
+// Initialize the invite cache
+const invites = {};
+
+// A pretty useful method to create a delay without blocking the whole script.
+const wait = require('util').promisify(setTimeout);
 
 //lecture des fichiers commandes
 fs.readdir('./cmds', (err, files) => {
@@ -53,9 +58,17 @@ bot.on("ready", async () => {
         bot.user.setActivity(status)
         //console.log("Statut : " + status)
     }, 10000)
+    
+    client.guilds.forEach(g => {
+    g.fetchInvites().then(guildInvites => {
+      invites[g.id] = guildInvites;
+    });
+  });
 })
 
 bot.on("guildMemberAdd", async(member) => {
+    
+   
     let newMember = new Discord.RichEmbed()
         .setTitle(`Welcome ${member.user.username}, you're now on **${member.guild.name}**!`)
         .setThumbnail(member.guild.iconURL)
@@ -63,6 +76,20 @@ bot.on("guildMemberAdd", async(member) => {
         .setFooter(`Copyright - ${bot.user.username}`)
     member.send(newMember)
 
+     member.guild.fetchInvites().then(guildInvites => {
+    // This is the *existing* invites for the guild.
+    const ei = invites[member.guild.id];
+    // Update the cached invites for the guild.
+    invites[member.guild.id] = guildInvites;
+    // Look through the invites, find the one for which the uses went up.
+    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
+    // This is just to simplify the message being sent below (inviter doesn't have a tag property)
+    const inviter = client.users.get(invite.inviter.id);
+    // Get the log channel (change to your liking)
+    const logChannel = member.guild.channels.find(channel => channel.name === "join-logs");
+         logChannel.send(`${member.user.tag} joined using invite code ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation.`);
+  });
+    
     const channelc = member.guild.channels.find("name", "welcome")
     if (member.guild.me.hasPermission('MANAGE_CHANNELS') && !channelc) {
         await member.guild.createChannel('welcome', 'text')

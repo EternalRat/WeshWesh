@@ -69,7 +69,6 @@ bot.on("ready", async () => {
         var date = new Date()
         var h = date.getHours()
         var m = date.getMinutes()
-        console.log("Bip")
         const msgchannel = bot.channels.find(channel => channel.name === "discussion")
         if(h === 11) {
             if(m === 00) {

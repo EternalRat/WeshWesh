@@ -65,11 +65,16 @@ bot.on("ready", async () => {
     });
   });
     bot.setInterval(function() {
-        var date = now Date()
-        var h = date.hours
-        var m = date.mins
-        var s = date.sec
-        })
+        var date = new Date()
+        var h = date.getHours()
+        var m = date.getMinutes()
+        if(h === 19) {
+            const embeded = new Discord.RichEmbed()
+                .setDescription("Nous espérons que vous aimez le serveur ! /br Si c'est le cas n'hésitez surtout pas à le partager à vos amis !)
+                .setThumbnail(bot.guild.iconURL)
+            bot.channels.get("522398078414749709").send(embeded);
+        }
+     }, 60000)
 })
 
 bot.on("guildMemberAdd", async(member) => {

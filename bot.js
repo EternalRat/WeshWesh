@@ -65,14 +65,14 @@ bot.on("ready", async () => {
     });
   });
     
-     bot.setInterval(function () {
+     setInterval(function () {
         var date = new Date()
         var h = date.getHours()
         var m = date.getMinutes()
         console.log("Bip")
         const msgchannel = message.guild.channels.find(channel => channel.name === "discussion")
         if(h === 19) {
-            if(m === 55) {
+            if(m === 58) {
             let embeded = new Discord.RichEmbed()
                 .addField("Nous espérons que vous aimez le serveur !", "Si c'est le cas n'hésitez surtout pas à le partager à vos amis !")
                 .setThumbnail(message.guild.iconURL)

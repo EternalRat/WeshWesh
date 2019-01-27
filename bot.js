@@ -75,7 +75,7 @@ bot.on("ready", async () => {
             if(m === 00) {
             let embeded = new Discord.RichEmbed()
                 .setColor("#FF0000")
-                .setFooter(bot.user.username)
+                .setFooter('Copyright - ' + bot.user.username)
                 .addField("Nous espérons que vous aimez le serveur !", "Si c'est le cas n'hésitez surtout pas à le partager à vos amis !")
             msgchannel.send(embeded);
             }

@@ -64,6 +64,12 @@ bot.on("ready", async () => {
       invites[g.id] = guildInvites;
     });
   });
+    bot.setInterval(function() {
+        var date = now Date()
+        var h = date.hours
+        var m = date.mins
+        var s = date.sec
+        })
 })
 
 bot.on("guildMemberAdd", async(member) => {

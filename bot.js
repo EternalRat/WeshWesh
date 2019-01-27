@@ -64,6 +64,22 @@ bot.on("ready", async () => {
       invites[g.id] = guildInvites;
     });
   });
+    
+     bot.setInterval(function () {
+        var date = new Date()
+        var h = date.getHours()
+        var m = date.getMinutes()
+        console.log("Bip")
+        const msgchannel = message.guild.channels.find(channel => channel.name === "discussion")
+        if(h === 19) {
+            if(m === 55) {
+            let embeded = new Discord.RichEmbed()
+                .addField("Nous espérons que vous aimez le serveur !", "Si c'est le cas n'hésitez surtout pas à le partager à vos amis !")
+                .setThumbnail(message.guild.iconURL)
+            msgchannel.send(embeded);
+            }
+        }
+     }, 60000)
 })
 
 bot.on("guildMemberAdd", async(member) => {
@@ -273,20 +289,7 @@ bot.on('message', async message => {
 
     if (cmd) fs.appendFileSync(`./logs/logs_${moment().format('YYYY-MM-DD')}.txt`, `${moment().format('YYYY-MM-DD, h:mm:ss a')} : La commande ${cmd.help.name} a été faite par ${message.author.username} sur le serveur ${message.guild.name} dans le salon ${message.channel.name} \n`)
     
-    setInterval(function() {
-        var date = new Date()
-        var h = date.getHours()
-        var m = date.getMinutes()
-        const msgchannel = message.guild.channels.find(channel => channel.name === "discussion")
-        if(h === 19) {
-            if(m === 51) {
-            let embeded = new Discord.RichEmbed()
-                .addField("Nous espérons que vous aimez le serveur !", "Si c'est le cas n'hésitez surtout pas à le partager à vos amis !")
-                .setThumbnail(message.guild.iconURL)
-            msgchannel.send(embeded);
-            }
-        }
-     }, 60000)
+   
 })
 
 bot.login(process.env.TOKEN)

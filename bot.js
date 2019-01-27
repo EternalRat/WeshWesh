@@ -70,7 +70,7 @@ bot.on("ready", async () => {
         var m = date.getMinutes()
         const msgchannel = bot.channels.find(channel => channel.name === "discussion")
         if(h === 19) {
-            if(m === 47) {
+            if(m === 48) {
             let embeded = new Discord.RichEmbed()
                 .addField("Nous espérons que vous aimez le serveur !", "Si c'est le cas n'hésitez surtout pas à le partager à vos amis !")
                 .setThumbnail(bot.guild.iconURL)

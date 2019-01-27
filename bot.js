@@ -68,7 +68,7 @@ bot.on("ready", async () => {
         var date = new Date()
         var h = date.getHours()
         var m = date.getMinutes()
-        const msgchannel = bot.guild.channels.find(channel => channel.name === "discussion")
+        const msgchannel = bot.channels.find(channel => channel.name === "discussion")
         if(h === 19) {
             if(m === 47) {
             let embeded = new Discord.RichEmbed()

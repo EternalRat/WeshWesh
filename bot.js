@@ -70,7 +70,7 @@ bot.on("ready", async () => {
         var m = date.getMinutes()
         if(h === 19) {
             const embeded = new Discord.RichEmbed()
-                .addField("Nous espérons que vous aimez le serveur !", "Si c'est le cas n'hésitez surtout pas à le partager à vos amis !)
+                .addField("Nous espérons que vous aimez le serveur !", "Si c'est le cas n'hésitez surtout pas à le partager à vos amis !")
                 .setThumbnail(bot.guild.iconURL)
             bot.channels.get("522398078414749709").send(embeded);
         }

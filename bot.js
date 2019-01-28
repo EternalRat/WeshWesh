@@ -97,7 +97,7 @@ bot.on("guildMemberAdd", async(member) => {
     invites[member.guild.id] = guildInvites;
     const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
     const inviter = bot.users.get(invite.inviter.id);
-    const logChannel = member.guild.channels.find(channel => channel.name === "logs");
+    const logChannel = member.guild.channels.find(channel => channel.name === "logs-invite");
     const lognew = new Discord.RichEmbed() 
         .setTitle("New member has arrived")
         .setAuthor(member.user.username)

@@ -98,6 +98,11 @@ bot.on("guildMemberAdd", async(member) => {
     const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
     const inviter = bot.users.get(invite.inviter.id);
     const logChannel = member.guild.channels.find(channel => channel.name === "logs-invite");
+    if (member.guild.me.hasPermission('MANAGE_CHANNELS') && !logChannel) {
+            member.guild.createChannel('logs-invite', 'text')
+        } else if (!logChannel) {
+            return
+        }
     const lognew = new Discord.RichEmbed() 
         .setTitle("New member has arrived")
         .setAuthor(member.user.username)
@@ -107,6 +112,57 @@ bot.on("guildMemberAdd", async(member) => {
         .addField("Utilisation count since its creation :", invite.uses)
     
          logChannel.send(lognew);
+
+        const role1 = member.guild.roles.find(r => r.name === "Débutant")
+        const role2 = member.guild.roles.find(r => r.name === "Initié")
+        const role3 = member.guild.roles.find(r => r.name === "Pro")
+        const role4 = member.guild.roles.find(r => r.name === "Expert")
+        const role5 = member.guild.roles.find(r => r.name === "Confirmé")
+        if (invite.uses == 5) {
+            if (!member.guild.members.get(invite.inviter.id).roles.has(role1.id)) {
+                const upgrade = new Discord.RichEmbed()
+                    .addField(`Congratulations ${inviter.username} you had invited 5 peoples or more, you won a grade !`, role1)
+                const discussion = member.guild.channels.find(channel => channel.name === "discussion")
+                member.guild.members.get(invite.inviter.id).addRole(role1)
+                discussion.send(upgrade)
+            }
+        }
+        if (invite.uses == 10) {
+            if (!member.guild.members.get(invite.inviter.id).roles.has(role2.id)) {
+                const upgrade = new Discord.RichEmbed()
+                    .addField(`Congratulations ${inviter.username} you had invited 10 peoples or more, you won a grade !`, role2)
+                const discussion = member.guild.channels.find(channel => channel.name === "discussion")
+                member.guild.members.get(invite.inviter.id).addRole(role2)
+                discussion.send(upgrade)
+            }
+        }
+        if (invite.uses == 15) {
+            if (!member.guild.members.get(invite.inviter.id).roles.has(role3.id)) {
+                const upgrade = new Discord.RichEmbed()
+                    .addField(`Congratulations ${inviter.username} you had invited15 peoples or more, you won a grade !`, role3)
+                const discussion = member.guild.channels.find(channel => channel.name === "discussion")
+                member.guild.members.get(invite.inviter.id).addRole(role3)
+                discussion.send(upgrade)
+            }
+        }
+        if (invite.uses == 20) {
+            if (!member.guild.members.get(invite.inviter.id).roles.has(role4.id)) {
+                const upgrade = new Discord.RichEmbed()
+                    .addField(`Congratulations ${inviter.username} you had invited 20 peoples or more, you won a grade !`, role4)
+                const discussion = member.guild.channels.find(channel => channel.name === "discussion")
+                member.guild.members.get(invite.inviter.id).addRole(role4)
+                discussion.send(upgrade)
+            }
+        }
+        if (invite.uses == 50) {
+            if (!member.guild.members.get(invite.inviter.id).roles.has(role5.id)) {
+                const upgrade = new Discord.RichEmbed()
+                    .addField(`Congratulations ${inviter.username} you had invited 50 peoples or more, you won a grade !`, role4)
+                const discussion = member.guild.channels.find(channel => channel.name === "discussion")
+                member.guild.members.get(invite.inviter.id).addRole(role5)
+                discussion.send(upgrade)
+            }
+        }
   });
     
     

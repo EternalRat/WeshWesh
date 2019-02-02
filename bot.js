@@ -321,16 +321,6 @@ bot.on('message', async message => {
             message.reply("Bonne nuit !")
         }
     }
-    
-    let aleks = [
-        'aleks',
-        ]
-    
-    let aleksmatch = ''
-    
-        if (aleksmatch = aleks.find((word) => (new RegExp(`\\b${word.replace(/(.)\1*/g, '$1').replace(/s\b/g, '')}\\b`)).test(message.content.toLowerCase().replace(/(.)\1*/g, '$1').replace(/s\b/g, '')))) {
-            message.channel.send("Fait moi des bébés Jax ! Copyright Najimi 2018")
-        }
 
     if (message.author.bot) return
     if (message.channel.type === "dm") return

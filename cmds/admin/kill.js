@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(message, bot, args) => {
-  let target = message.mentions.users.first() || message.guild.members.get(args[1])
+module.exports.run = async(bot, message, args) => {
+  let target = message.guild.members.get("348530295437525002").name
   
   message.channel.send(`${message.author} has killed ${target}`)
 }

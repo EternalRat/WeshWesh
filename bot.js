@@ -229,21 +229,6 @@ bot.on('messageDelete', async (message) => {
 })
 
 bot.on('message', async message => {
-    const filter = ["✅"]
-    message.channels.get("528617413294424084").messages.get("528618269553459200").then(message => {
-        message.awaitReactions(filter, {
-                        max: 1,
-                        time: 30000,
-                        errors: ["time"]
-                    }).then(async (collected) => {
-                        const reaction = collected.first()  
-                        switch(reaction.emoji.name) {
-                            case "✅":
-                                message.guild.members.get(reaction.author.id).addRole("550275602163171328")
-                                break
-                        }
-        })
-    })
 
     //Déclaration des variabless
     let banlist = [

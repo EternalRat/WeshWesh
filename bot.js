@@ -6,6 +6,14 @@ const fs = require("fs")
 const moment = require("moment")
 const bot = new Discord.Client({ disableEveryone: true })
 
+let add = []
+let allow = JSON.parse(fs.readFileSync("./json/allow.json", "utf-8"))
+let channel = JSON.parse(fs.readFileSync("./json/channel.json", "utf-8"))
+let channel2 = JSON.parse(fs.readFileSync("./json/membercount.json", "utf-8"))
+let logschannel = JSON.parse(fs.readFileSync(`./json/logschannel.json`, "utf-8"))
+let insult = JSON.parse(fs.readFileSync(`./json/allowinsult.json`, "utf-8"))
+let warns = JSON.parse(fs.readFileSync("./json/violationword.json", "utf8"))
+
 bot.commands = new Discord.Collection()
 bot.aliases = new Discord.Collection()
 global.servers = {}
@@ -91,7 +99,7 @@ bot.on("guildMemberAdd", async(member) => {
         .setDescription(`Don't forget to read the charts (rules) and approve it by leaving reactions in order to get your roles.`)
         .setFooter(`Copyright - ${bot.user.username}`)
     member.send(newMember)
-
+if (allow[member.guild.id].on === 1) {
      member.guild.fetchInvites().then(guildInvites => {
     const ei = invites[member.guild.id];
     invites[member.guild.id] = guildInvites;
@@ -164,22 +172,20 @@ bot.on("guildMemberAdd", async(member) => {
             }
         }
   });
-    
-    
-    
-    const channelc = member.guild.channels.find("name", "welcome")
-    if (member.guild.me.hasPermission('MANAGE_CHANNELS') && !channelc) {
-        await member.guild.createChannel('welcome', 'text')
-    } else if (!channelc) {
-        return
-    }
+   
     let Nm = new Discord.RichEmbed()
         .setTitle(`**${member.user.username}** has arrived in **${member.guild.name}**`)
         .setAuthor(member.user.username, member.user.avatarURL)
         .setThumbnail(member.guild.iconURL)
         .addField(`Welcome to ${member.guild.name} !`, `I hope you'll enjoy your days here !`)
         .setFooter(`Copyright - ${bot.user.username}`)
-    channelc.send(Nm)
+    if (channel[member.guild.id].channel !== "NONE") {
+            member.guild.channels.get('name', 'welcome').send(Nm)
+        }
+    }
+    if (channel2[member.guild.id].count !== "NONE") {
+        bot.channels.get(channel2[member.guild.id].count).setName(`Member Count : ${member.guild.members.filter(m => !m.user.bot).size}`)
+    }
 })
 
 bot.on("guildMemberRemove", async (member) => {
@@ -196,6 +202,64 @@ bot.on("guildMemberRemove", async (member) => {
         .addField(`Good bye to ${member.user.username} !`, `I hope he will be fine now !`)
         .setFooter(`Copyright - ${bot.user.username}`)
     bye.send(Rm)
+    if (channel2[member.guild.id].count !== "NONE") {
+        bot.channels.get(channel2[member.guild.id].count).setName(`Member Count : ${member.guild.members.filter(m => !m.user.bot).size}`)
+    }
+})
+
+bot.on("guildCreate", (guild) => {
+    try {
+        add = fs.writeFile(`./json/authorized/authorizedpeople${guild.id}.txt`).toString().split(/\s/)
+    } catch (error) {
+    }
+    add.push('506151275990351923')
+    fs.writeFile(`./json/authorized/authorizedpeople${guild.id}.txt`, add.join(" "), (err) => {
+        if (err) console.log(err)
+    })
+    allow[guild.id] = {
+        on: 0
+    }
+    fs.writeFile(`./json/allow.json`, JSON.stringify(allow), (err) => {
+        if (err) console.log(err)
+    })
+    channel[guild.id] = {
+        channel: "NONE",
+        name: "NONE"
+    }
+    fs.writeFile(`./json/channel.json`, JSON.stringify(channel), (err) => {
+        if (err) console.log(err)
+    })
+    channel2[guild.id] = {
+        count: "NONE"
+    }
+    fs.writeFile(`./json/membercount.json`, JSON.stringify(channel2), (err) => {
+        if (err) console.log(err)
+    })
+    logschannel[guild.id] = {
+        on: 0
+    }
+    fs.writeFile(`./json/logschannel.json`, JSON.stringify(logschannel), (err) => {
+        if (err) console.log(err)
+    })
+    insult[guild.id] = {
+        on: 0
+    }
+    fs.writeFile(`./json/allowinsult.json`, JSON.stringify(insult), (err) => {
+        if (err) console.log(err)
+    })
+})
+
+bot.on("guildDelete", (guild) => {
+    fs.unlink(`./json/authorized/authorizedpeople${guild.id}.txt`, function (err) {
+        if (err) {
+            return
+        }
+    })
+    delete allow[guild.id]
+    delete channel[guild.id]
+    delete channel2[guild.id]
+    delete logschannel[guild.id]
+    delete insult[guild.id]
 })
 
 bot.on('messageDelete', async (message) => {

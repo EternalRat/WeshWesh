@@ -14,7 +14,8 @@ module.exports.run = async (bot, message, args) => {
         .addField(" :cop: **`" + prefix + "helpadmin || ha`**", "Display admin's commands")
         .addField(" :gift: **`" + prefix + "helpfun || hf`**", "Display fun commands")
         .addField(" :tada: **`" + prefix + "helpother || ho`**", "Display others commands")
-        .setFooter("Copyright - " + bot.user.username)
+        .addField(" :: **`" + prefix + "helpbot || hb`**", "Display bot setting's commands")
+        .setFooter("Copyright - EternalRat")
     message.author.send(music_embed);
 
     msg.delete();
